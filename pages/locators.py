@@ -18,3 +18,9 @@ class LoginPageLocators():
     REG_PASSWORD2 = (By.CSS_SELECTOR, "#id_registration-password2")
     
     LOGIN_IN = (By.CSS_SELECTOR, "#btn-primary")
+
+    
+    ICON_USER = (By.CSS_SELECTOR, ".icon-user")
+    ERROR_MASSEGE = (By.CSS_SELECTOR, ".alert.alert-danger")
+    HINT = (By.CSS_SELECTOR, ".icon-exclamation-sign")
+    WELCOME_MESSEGE_ICON = (By.CSS_SELECTOR, ".alertinner.wicon") #Спасибо за регистрацию! icon-ok-sign
