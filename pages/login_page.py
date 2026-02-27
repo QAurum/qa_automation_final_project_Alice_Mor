@@ -11,6 +11,8 @@ class LoginPage(BasePage):
         self.should_be_login_url(expected_language)
         self.should_be_login_form()
         self.should_be_register_form()
+        
+#-------------------------------------------------------------------------------------------------
 
     #ПРОВЕРКИ
     def should_be_login_url(self, expected_language):
@@ -25,11 +27,11 @@ class LoginPage(BasePage):
         
         # Проверяем путь
         assert "/accounts/login/" in current_url, \
-        f"❌ Это не страница логина: {current_url}"
+        f"❌ Это не страница логина: {current_url}. "
         
         # Можно проверить протокол (https) - все-равно происходит перенаправление с http на https
         assert current_url.startswith("https"), \
-        "‼️ Сайт должен использовать защищенное соединение"
+        "‼️ Сайт должен использовать защищенное соединение, а не {current_url}"
         
         # Проверка на наличие 'login' в URL
         current_url = self.browser.current_url
@@ -46,7 +48,9 @@ class LoginPage(BasePage):
         assert self.is_element_present(*LoginPageLocators.REGISTER_FORM), \
         "✅ Register form is present"
         
-    # Методы-действия (actions) — без assert
+#-------------------------------------------------------------------------------------------------
+
+# Методы-действия (actions) — без assert
     def login_user(self, email, password):
         self.browser.find_element(*LoginPageLocators.LOGIN_EMAIL).send_keys(email)
         self.browser.find_element(*LoginPageLocators.LOGIN_PASSWORD).send_keys(password)
@@ -62,18 +66,13 @@ class LoginPage(BasePage):
         self.browser.find_element(*LoginPageLocators.PASSWORD_RESET)
         
     
-    
-    # Методы-проверки (assertions) — с assert
+#-------------------------------------------------------------------------------------------------
+
+# Методы-проверки (assertions) — с assert
     
     # Наличия сообщения об ошибке
     def should_be_error_message(self):
         self.browser.find_element(*LoginPageLocators.HINT)
-    
-    # Наличие конкретного текста в сообщениях об ошибках
-#    def should_be_error_incorrect_email(self):
-#        error_element = self.browser.find_element(By.CSS_SELECTOR, ".icon-exclamation-sign")
-#        actual_error_text = error_element.text
-#        assert "Введите корректный адрес электронной почты." in actual_error_text, f"Вместо нужной ошибки - '{actual_error_text}'"
     
     # Наличия иконки успеха
     def should_be_success_icon(self):
