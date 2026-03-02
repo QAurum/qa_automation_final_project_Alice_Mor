@@ -1,4 +1,5 @@
 from selenium.common.exceptions import InvalidSelectorException
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import Remote as RemoteWebDriver
 # базовая страница, от которой будут унаследованы все остальные классы. В ней  описаны вспомогательные методы для работы с драйвером
 
@@ -23,6 +24,9 @@ class BasePage():
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
+        # NoSuchElementException (когда элемента нет) не обрабатывался до тех пор пока его не прописали здесь:
+        except (NoSuchElementException):  # ← правильное исключение!
+            return False  # элемента нет
         except (InvalidSelectorException):
             return False
         return True

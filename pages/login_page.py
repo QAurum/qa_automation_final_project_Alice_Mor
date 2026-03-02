@@ -60,7 +60,7 @@ class LoginPage(BasePage):
         self.browser.find_element(*LoginPageLocators.REG_EMAIL).send_keys(email)
         self.browser.find_element(*LoginPageLocators.REG_PASSWORD1).send_keys(password1)
         self.browser.find_element(*LoginPageLocators.REG_PASSWORD2).send_keys(password2)
-        self.browser.find_element(*LoginPageLocators.LOGIN_IN).click()
+        self.browser.find_element(*LoginPageLocators.REGISTER_IN).click()
         
     def user_fogot_password(self):
         self.browser.find_element(*LoginPageLocators.PASSWORD_RESET)
@@ -72,14 +72,22 @@ class LoginPage(BasePage):
     
     # Наличия сообщения об ошибке
     def should_be_error_message(self):
-        self.browser.find_element(*LoginPageLocators.HINT)
+        assert self.browser.is_element_present(*LoginPageLocators.HINT), \
+        "❌ Has't error messege"
     
     # Наличия иконки успеха
     def should_be_success_icon(self):
-        self.browser.find_element(*LoginPageLocators.WELCOME_MESSEGE_ICON)
-    
-    def should_be_authorized_user(self): # Проверка, что залогинились
-        assert self.is_element_present(*LoginPageLocators.ICON_USER), \
+        assert self.browser.find_element(*LoginPageLocators.WELCOME_MESSEGE_ICON), \
         "❌ User wasn't authorized"
+    
+    # Залогинились
+    def SHOULD_be_authorized_user(self): # Залогинились
+        assert self.is_element_present(*LoginPageLocators.ICON_USER), \
+        "❌ User wasn't Log In"
+
+    # ======= ASSERT NOT =======
+    def should_NOT_be_authorized_user(self): # НЕ залогинились
+        assert not self.is_element_present(*LoginPageLocators.ICON_USER), \
+        "‼️ User was authorized. WHY?"
     
 

@@ -17,7 +17,8 @@ class LoginPageLocators():
     REG_PASSWORD1 = (By.CSS_SELECTOR, "#id_registration-password1")
     REG_PASSWORD2 = (By.CSS_SELECTOR, "#id_registration-password2")
     
-    LOGIN_IN = (By.CSS_SELECTOR, "#btn-primary")
+    LOGIN_IN = (By.NAME, "login_submit")
+    REGISTER_IN = (By.NAME, "registration_submit")
 
     
     ICON_USER = (By.CSS_SELECTOR, ".icon-user")

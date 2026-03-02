@@ -35,7 +35,7 @@ def test_guest_have_true_login_page(browser, request):
     link = f"http://selenium1py.pythonanywhere.com/accounts/login/"
     page = LoginPage(browser, link)
     page.open()
-    page.should_be_login_page(language)
+    login_page = page.should_be_login_page(language)
 
     # Проверка правильности URL-а
 def test_guest_have_true_login_url(browser, request):
@@ -72,8 +72,7 @@ def test_guest_can_login_with_valid_data(browser, request):
     page.open()
     page.should_be_login_form()
     page.login_user("test_alise_mor@email.com", "password123password123")
-    page.should_be_authorized_user()
-# 🔴 Ожидаемая ошибка: AttributeError: 'LoginPage' object has no attribute 'login_user'
+    page.SHOULD_be_authorized_user()
 
 # НЕУСПЕШНАЯ АВТОРИЗАЦИЯ
 def test_guest_can_not_login_with_invalid_data(browser, request):
@@ -84,7 +83,7 @@ def test_guest_can_not_login_with_invalid_data(browser, request):
     page.open()
     page.should_be_login_form()
     page.login_user("test@email", "password123")
-    page.should_be_error_message()
+    page.should_NOT_be_authorized_user()
     
     
 #-------------------------------------------------------------------------------------------------
@@ -106,11 +105,11 @@ def test_guest_can_register(browser, request):
     print(f"\n 👏 Регистрирация пользователя: {email} / {password}")
     
     page.register_user(email, password, password)
-    page.should_be_authorized_user()
+    page.SHOULD_be_authorized_user()
     
     
     # РЕГИСТРАЦИЯ ПОД ДАННЫМИ ЗАРЕГИСТРИРОВАННОГО ПОЛЬЗОВАТЕЛЯ
-def test_guest_can_register(browser, request):
+def test_guest_already_register(browser, request):
     language = request.config.getoption("language")
     lang = get_actual_language(language)
     link = f"https://selenium1py.pythonanywhere.com/{lang}/accounts/login/"
@@ -123,7 +122,7 @@ def test_guest_can_register(browser, request):
     page.should_be_authorized_user()
     
     # РЕГИСТРАЦИЯ С НЕВАЛИДНОЙ ПОЧТОЙ
-def test_guest_can_register(browser, request):
+def test_guest_cannot_register_invalid_email(browser, request):
     language = request.config.getoption("language")
     lang = get_actual_language(language)
     link = f"https://selenium1py.pythonanywhere.com/{lang}/accounts/login/"
@@ -132,10 +131,10 @@ def test_guest_can_register(browser, request):
     page.should_be_register_form()
     
     page.register_user("test@email.", "password123password123", "password123password123")
-    page.should_be_authorized_user()
+    page.should_NOT_be_authorized_user()
 
     # РЕГИСТРАЦИЯ С НЕСОВПАДАЮЩИМИ ПАРОЛЯМИ
-def test_guest_can_register(browser, request):
+def test_guest_cannot_register_different_passwords(browser, request):
     language = request.config.getoption("language")
     lang = get_actual_language(language)
     link = f"https://selenium1py.pythonanywhere.com/{lang}/accounts/login/"
@@ -144,4 +143,4 @@ def test_guest_can_register(browser, request):
     page.should_be_register_form()
     
     page.register_user("test_alise_mor@email.com", "password123password123", "password444password444")
-    page.should_be_authorized_user()
+    page.should_NOT_be_authorized_user()
