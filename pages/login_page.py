@@ -3,6 +3,7 @@
 from .base_page import BasePage
 from .main_page import MainPage
 from .locators import LoginPageLocators
+from .login_page import LoginPage
 
 
 class LoginPage(BasePage):
@@ -11,6 +12,12 @@ class LoginPage(BasePage):
         self.should_be_login_url(expected_language)
         self.should_be_login_form()
         self.should_be_register_form()
+
+# Переход между страницами возвратом нужного Page Object:
+    def go_to_login_page(self):
+        login_link = self.browser.find_element(*LoginPageLocators.LOGIN_LINK)
+        login_link.click()
+        # return LoginPage(browser=self.browser, url=self.browser.current_url) для инициализации страницы неявно через метод
         
 #-------------------------------------------------------------------------------------------------
 

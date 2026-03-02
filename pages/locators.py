@@ -7,6 +7,8 @@ class MainPageLocators():
 class LoginPageLocators():
     url_selenium1 = "http://selenium1py.pythonanywhere.com"
     target_link = "/ru/password-reset/"
+
+    LOGIN_LINK = "'http://selenium1py.pythonanywhere.com/{language}/accounts/login/"
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
     LOGIN_EMAIL = (By.CSS_SELECTOR, "#id_login-username")
     LOGIN_PASSWORD = (By.CSS_SELECTOR, "#id_login-password")
