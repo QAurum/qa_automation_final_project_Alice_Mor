@@ -6,10 +6,10 @@ def test_guest_can_go_to_login_page(browser, request):
     page = MainPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес (создает объект page)
     page.open()
     login_page = page.go_to_login_page() # проверяем, что кнопка работает
-    login_page.should_be_login_link()       #‼️ПЕРЕПРОВЕРИТЬ КАК РАБОТАЕТ
+    login_page.should_be_login_link()
 
 def test_guest_should_see_login_link(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = MainPage(browser, link)
     page.open()
-    login_page = page.should_be_login_link()       #‼️ПЕРЕПРОВЕРИТЬ КАК РАБОТАЕТ
+    login_page = page.should_be_login_link()

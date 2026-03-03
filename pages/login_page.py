@@ -30,15 +30,15 @@ class LoginPage(BasePage):
         # Т.к. сайт перенаправляет с просто en на британский en-gb то проверка вот такая:
         # Проверяем домен
         assert "selenium1py.pythonanywhere.com" in current_url, \
-        f"❌ Неверный домен: {current_url}"
+        f"❌ Wrong domain: {current_url}"
         
         # Проверяем путь
         assert "/accounts/login/" in current_url, \
-        f"❌ Это не страница логина: {current_url}. "
+        f"❌ It's not a login page: {current_url}. "
         
         # Можно проверить протокол (https) - все-равно происходит перенаправление с http на https
         assert current_url.startswith("https"), \
-        "‼️ Сайт должен использовать защищенное соединение, а не {current_url}"
+        "‼️ Site shouldn use HTTPS, not {current_url}"
         
         # Проверка на наличие 'login' в URL
         current_url = self.browser.current_url
