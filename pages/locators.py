@@ -30,8 +30,8 @@ class LoginPageLocators():
 
 class CataloguePageLocators():
     PRODUCT_PAGE = "/catalogue/the-shellcoders-handbook_209/?promo=newYear"  # параметр "?promo=newYear" чтобы получить проверочный код
-    ADD_TO_BASKET = (By.CSS_SELECTOR, ".btn-add-to-basket") # кнопка добавления товара в корзину
-    PRODUCT_NAME = (By.CSS_SELECTOR, ".product_main h1")  # название товара
-    PRODUCT_PRICE = (By.CSS_SELECTOR, ".product_main .price_color p")  # цена товара
-    SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success .alertinner strong")  # сообщение об успехе ⚠️ уточнить локатор
-    BASKET_PRICE_MESSAGE = (By.CSS_SELECTOR, ".alert-info .alertinner strong")  # сообщение о цене в корзине ⚠️ уточнить локатор
+    ADD_TO_BASKET = (By.CSS_SELECTOR, ".btn-primary.btn-add-to-basket") # кнопка добавления товара в корзину
+    PRODUCT_NAME = (By.CSS_SELECTOR, ".product_main h1")
+    PRODUCT_PRICE = (By.CSS_SELECTOR, ".price_color")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success .alertinner strong")
+    BASKET_PRICE_MESSAGE = (By.CSS_SELECTOR, ".alert-info .alertinner strong")

@@ -2,6 +2,7 @@ from selenium.common.exceptions import InvalidSelectorException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver import Remote as RemoteWebDriver
+import math
 # базовая страница, от которой будут унаследованы все остальные классы. В ней  описаны вспомогательные методы для работы с драйвером
 
 class BasePage():
@@ -33,17 +34,16 @@ class BasePage():
 
 
 # После вычисления полученный код нужно ввести в качестве ответа на данное задание. Код будет выведен в консоли интерпретатора, в котором вы запускаете тест. Не забудьте в конце теста добавить проверки на ожидаемый результат
-        def solve_quiz_and_get_code(self):
-            prompt = self.browser.switch_to.alert
-            prompt_text = prompt.text # Получаем текст
-            x = prompt_text.split(" ")[2] # Разрезаем строку 'x = "12345"' по пробелам # ["x", "=", "12345"][2] = "12345"
-            answer = str(math.log(abs((12 * math.sin(float(x))))))
-            prompt.send_keys(answer)
-            prompt.accept()
-            try:
-                alert = self.browser.switch_to.alert
-                alert_text = alert.text
-                print(f"✅ Verification code is {alert_text}")
-                alert.accept()
-            except NoAlertPresentException:
-                print("❌ Haven't secont alert")
+    def solve_quiz_and_get_code(self):
+        alert = self.browser.switch_to.alert
+        x = alert.text.split(" ")[2] # Разрезаем строку 'x = "12345"' по пробелам # ["x", "=", "12345"][2] = "12345"
+        answer = str(math.log(abs((12 * math.sin(float(x))))))
+        alert.send_keys(answer)
+        alert.accept()
+        try:
+            alert = self.browser.switch_to.alert
+            alert_text = alert.text
+            print(f"✅ Your code: {alert_text}")
+            alert.accept()
+        except NoAlertPresentException:
+            print("❌ No second alert presented")
