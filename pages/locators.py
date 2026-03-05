@@ -26,7 +26,7 @@ class LoginPageLocators():
     ICON_USER = (By.CSS_SELECTOR, ".icon-user")
     ERROR_MASSEGE = (By.CSS_SELECTOR, ".alert.alert-danger")
     HINT = (By.CSS_SELECTOR, ".icon-exclamation-sign")
-    WELCOME_MESSEGE_ICON = (By.CSS_SELECTOR, ".alertinner.wicon") #Спасибо за регистрацию! icon-ok-sign
+    WELCOME_MESSAGE_ICON = (By.CSS_SELECTOR, ".alertinner.wicon") #Спасибо за регистрацию! icon-ok-sign
 
 class CataloguePageLocators():
     PRODUCT_PAGE = "/catalogue/the-shellcoders-handbook_209/?promo=newYear"  # параметр "?promo=newYear" чтобы получить проверочный код
