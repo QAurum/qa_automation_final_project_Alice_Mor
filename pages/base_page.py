@@ -47,3 +47,9 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("❌ No second alert presented")
+
+
+        # Вспомогательный метод для провкерки что сообщения об успехе нет
+    def should_not_be_success_message(self, timeout=4):
+        assert self.is_not_element_present(*CataloguePageLocators.SUCCESS_MESSAGE, timeout=timeout), \
+            f"❌ Сообщение об успехе появилось, хотя не должно!"

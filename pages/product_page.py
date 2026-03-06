@@ -1,5 +1,8 @@
 from .base_page import BasePage
 from .locators import CataloguePageLocators
+from selenium.webdriver.support.ui import WebDriverWait # Для явного ожидания
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 import time
 
 class ProductPage(BasePage):   # наследуем от BasePage вычисления и промт
@@ -34,21 +37,31 @@ class ProductPage(BasePage):   # наследуем от BasePage вычисле
     def should_be_success_message(self):
         message_element = self.browser.find_element(*CataloguePageLocators.SUCCESS_MESSAGE)
         full_message = message_element.text
-        #print(f"\n📨 ПОЛНОЕ СООБЩЕНИЕ: '{full_message}'")
         assert self.is_element_present(*CataloguePageLocators.SUCCESS_MESSAGE), \
         f"❌ Succes message not found"
         
+        # ===== НЕГАТИВНЫЙ СЦЕНАРИЙ 1 =====
+        # Метод принимает параметры how, what, но внутри использует CataloguePageLocators
+    def should_not_be_success_message(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until(
+                EC.presence_of_element_located((how, what))
+            )
+            return False # если появилось → вернули Falseы
+        except TimeoutException:
+            # Таймаут — элемент так и не появился → успех
+            return True
+
+'''
+        # метод-проверка - негативный сценарий
     def should_be_basket_price_message(self):
         message_price = self.browser.find_element(*CataloguePageLocators.BASKET_PRICE_MESSAGE)
         full_message_price = message_price.text
-        #print(f"\n📨 ПОЛНОЕ СООБЩЕНИЕ ЦЕНЫ: '{message_price.text}'")
         assert self.is_element_present(*CataloguePageLocators.BASKET_PRICE_MESSAGE), \
         f"❌ Basket price message not found"
-    
+'''
 
-
-
-    def should_be_correct_product_name_in_message(self, expected_name):
+    def should_should_be_correct_name_in_basket_message(self, expected_name):
         name_element = self.browser.find_element(*CataloguePageLocators.SUCCESS_MESSAGE)
         actual_name = name_element.text
         

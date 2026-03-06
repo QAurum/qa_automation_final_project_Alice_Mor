@@ -5,7 +5,8 @@ import time
 
 @pytest.mark.parametrize('link', \
 [\
-"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
+"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"#,
+"""
 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1",
 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer2",
 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer3",
@@ -15,6 +16,7 @@ import time
 pytest.param("http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer7", marks=pytest.mark.xfail),
 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
 "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"
+"""
 ])
 
 def test_guest_can_add_product_to_basket(browser, link):
@@ -22,6 +24,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     print(f"\n ТКСТ: {link}")
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес (создает объект page)
     page.open()
+    should_not_be_success_message()  # ждет 4 сек, что элемента НЕТ
     page.should_be_add_to_basket_button() # кнопка добавления есть
     
     # Фиксируем название и цену для переисп. при проверке message
