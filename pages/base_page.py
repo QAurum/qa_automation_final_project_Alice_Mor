@@ -1,7 +1,6 @@
-from selenium.common.exceptions import InvalidSelectorException
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-from selenium.webdriver import Remote as RemoteWebDriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException, NoAlertPresentException, TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
 import math
 # базовая страница, от которой будут унаследованы все остальные классы. В ней  описаны вспомогательные методы для работы с драйвером
 
@@ -31,7 +30,34 @@ class BasePage():
         except (InvalidSelectorException):
             return False
         return True
+        
+        
+        # ===== UNTIL NOT =====
+# is_disappeared: будет ждать до тех пор, пока элемент не исчезнет
+    def is_disappeared(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout, 1).until_not(
+            EC.presence_of_element_located((how, what))
+            )
+            return True
+        except TimeoutException:
+            return False
+            
+        
+            # ===== UNTIL =====
+# Проверяет, что элемент НЕ появляется
+    def is_not_element_present(self, how, what, timeout=4):
+        try:
+            WebDriverWait(self.browser, timeout).until( # RemoteWebDriver - создание нового вебдрайвера
+                EC.presence_of_element_located((how, what))
+            )
+            
+            return False  # элемент появился
+        except TimeoutException:
+                return True  # элемент появился
 
+            
+    
 
 # После вычисления полученный код нужно ввести в качестве ответа на данное задание. Код будет выведен в консоли интерпретатора, в котором вы запускаете тест. Не забудьте в конце теста добавить проверки на ожидаемый результат
     def solve_quiz_and_get_code(self):
