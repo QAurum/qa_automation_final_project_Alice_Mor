@@ -1,3 +1,4 @@
+from .locators import BasePageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
@@ -21,6 +22,26 @@ class BasePage():
 # В __init__ мы сохраняем данные (browser и url)
 # В open мы используем сохраненные данные через self
 
+
+
+# Методы-действия (actions) — без assert
+
+    def go_to_login_page(self):
+        login_link = self.browser.find_element(*LoginPageLocators.LOGIN_LINK), "Login link is not presented" #LOGIN_LINK_INVALID для негативной проверки
+        login_link.click()
+        # для инициализации страницы неявно через метод:
+        # При создании объекта мы обязательно передаем ему тот же самый объект драйвера для работы с браузером, а в качестве url передаем текущий адрес.
+        #return LoginPage(browser=self.browser, url=self.browser.current_url)
+
+
+
+# Методы-проверки (assertions) — с assert
+
+    def should_be_login_link(self):
+        assert self.is_element_present(*BasePageLocators.LOGIN_LINK),\
+        "❌ Login link is not presented"
+        
+
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
@@ -33,6 +54,7 @@ class BasePage():
         
         
         # ===== UNTIL NOT =====
+
 # is_disappeared: будет ждать до тех пор, пока элемент не исчезнет
     def is_disappeared(self, how, what, timeout=4):
         try:
@@ -45,6 +67,7 @@ class BasePage():
             
         
             # ===== UNTIL =====
+
 # Проверяет, что элемент НЕ появляется
     def is_not_element_present(self, how, what, timeout=4):
         try:

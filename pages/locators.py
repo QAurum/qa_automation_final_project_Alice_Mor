@@ -1,14 +1,14 @@
 from selenium.webdriver.common.by import By
 
 
-class MainPageLocators():
-    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+#class MainPageLocators():
+    #LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
 
 class LoginPageLocators():
     url_selenium1 = "http://selenium1py.pythonanywhere.com"
     target_link = "/ru/password-reset/"
 
-    LOGIN_LINK = "'http://selenium1py.pythonanywhere.com/{language}/accounts/login/"
+    #LOGIN_LINK = "'http://selenium1py.pythonanywhere.com/{language}/accounts/login/"
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
     LOGIN_EMAIL = (By.CSS_SELECTOR, "#id_login-username")
     LOGIN_PASSWORD = (By.CSS_SELECTOR, "#id_login-password")
@@ -35,3 +35,7 @@ class CataloguePageLocators():
     PRODUCT_PRICE = (By.CSS_SELECTOR, ".price_color")
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success .alertinner strong")
     BASKET_PRICE_MESSAGE = (By.CSS_SELECTOR, ".alert-info .alertinner strong")
+
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
