@@ -1,4 +1,6 @@
 from .base_page import BasePage    # Точка . означает "в этой же папке"
+from .main_page import MainPage
+from locators import MainPageLocators, BasketPageLocators
 from selenium.webdriver.common.by import By
 
 class MainPage(BasePage):

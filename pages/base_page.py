@@ -1,4 +1,4 @@
-from .locators import BasePageLocators
+from .locators import BasePageLocators, BasketPageLocators, LoginPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
@@ -33,9 +33,16 @@ class BasePage():
         # При создании объекта мы обязательно передаем ему тот же самый объект драйвера для работы с браузером, а в качестве url передаем текущий адрес.
         #return LoginPage(browser=self.browser, url=self.browser.current_url)
 
+    def go_to_basket_page(self):
+        basket_link = self.browser.find_element(*BasePageLocators.BASKET_PAGE)
+        basket_link.click()
 
 
 # Методы-проверки (assertions) — с assert
+
+    def should_be_basket_button(self):
+        basket_button = self.browser.find_element(*MainPageLocators.BASKET_BUTTON)
+        basket_button.click()
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK),\
