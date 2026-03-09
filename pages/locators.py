@@ -1,14 +1,10 @@
 from selenium.webdriver.common.by import By
 
-
-class MainPageLocators():
-    BASKET_BUTTON = (By.CSS_SELECTOR, ".btn_group")
-
 class LoginPageLocators():
     url_selenium1 = "http://selenium1py.pythonanywhere.com"
     target_link = "/ru/password-reset/"
 
-    #LOGIN_LINK = "'http://selenium1py.pythonanywhere.com/{language}/accounts/login/"
+    LOGIN_LINK = "http://selenium1py.pythonanywhere.com/{language}/accounts/login/"
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
     LOGIN_EMAIL = (By.CSS_SELECTOR, "#id_login-username")
     LOGIN_PASSWORD = (By.CSS_SELECTOR, "#id_login-password")
@@ -39,8 +35,9 @@ class CataloguePageLocators():
 class BasePageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+    BASKET_BUTTON = (By.CSS_SELECTOR, ".btn-group")
+    #BASKET_PAGE = "http://selenium1py.pythonanywhere.com/basket/"
 
 class BasketPageLocators():
-    BASKET_PAGE = "/basket/"
     EMPTY_BASKET = (By.CSS_SELECTOR, "#content_inner")
     BASKET_ITEMS = (By.CSS_SELECTOR, ".basket_items")

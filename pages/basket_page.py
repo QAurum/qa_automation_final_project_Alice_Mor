@@ -1,3 +1,4 @@
+from .base_page import BasePage
 from .locators import BasePageLocators, BasketPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException, NoAlertPresentException, TimeoutException
@@ -5,11 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import math
 # базовая страница, от которой будут унаследованы все остальные классы. В ней  описаны вспомогательные методы для работы с драйвером
 
-class BasketPage():
-
-# Методы-действия (actions) — без assert
-
-
+class BasketPage(BasePage):
 
 # Методы-проверки (assertions) — с assert
 

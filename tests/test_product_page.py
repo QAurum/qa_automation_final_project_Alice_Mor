@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from pages.product_page import ProductPage
+from pages.basket_page import BasketPage
 import pytest
 import time
 
@@ -73,5 +74,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page.open()
     page.should_be_basket_button()
     page.go_to_basket_page()
-    page.should_not_be_products_in_basket()
-    page.should_see_message_basket_is_empty()
+    
+    basket_page = BasketPage(browser, browser.current_url) #Дальше работа из корзины
+    basket_page.should_not_be_products_in_basket()
+    basket_page.should_see_message_that_basket_is_empty()
