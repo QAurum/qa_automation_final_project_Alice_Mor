@@ -1,5 +1,8 @@
 from selenium.webdriver.common.by import By
 
+class MainPageLocators():
+    MAIN_LINK = "http://selenium1py.pythonanywhere.com/"
+
 class LoginPageLocators():
     url_selenium1 = "http://selenium1py.pythonanywhere.com"
     target_link = "/ru/password-reset/"

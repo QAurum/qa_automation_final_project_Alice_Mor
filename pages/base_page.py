@@ -27,7 +27,7 @@ class BasePage():
 # Методы-действия (actions) — без assert
 
     def go_to_login_page(self):
-        login_link = self.browser.find_element(*LoginPageLocators.LOGIN_LINK), "Login link is not presented" #LOGIN_LINK_INVALID для негативной проверки
+        login_link = self.browser.find_element(*LoginPageLocators.LOGIN_LINK), "Login link not found" #LOGIN_LINK_INVALID для негативной проверки
         login_link.click()
         # для инициализации страницы неявно через метод:
         # При создании объекта мы обязательно передаем ему тот же самый объект драйвера для работы с браузером, а в качестве url передаем текущий адрес.
