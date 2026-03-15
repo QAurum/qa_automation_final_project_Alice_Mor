@@ -20,8 +20,6 @@ def generate_password(length=10):
 
 
 def test_guest_can_add_product_to_basket(browser, link): # если прописать (browser, link) то будет искаться фикстура с link
-    #link = f"http://selenium1py.pythonanywhere.com/ru/catalogue/the-shellcoders-handbook_209/?promo=newYear"
-    print(f"\n ТКСТ: {link}")
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес (создает объект page)
     page.open()
     page.should_be_add_to_basket_button() # кнопка добавления есть

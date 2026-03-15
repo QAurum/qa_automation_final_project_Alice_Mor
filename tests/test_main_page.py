@@ -1,10 +1,14 @@
-from pages.base_page import BasePage, BasketPage, MainPage
+from pages.base_page import BasePage
+from pages.basket_page import BasketPage
+from pages.main_page import MainPage
+import pytest
+
 
 #Бутут переписаны. В них сейчас нет необходимости
 
 def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
-    page = BasePage(browser, link)
+    page = BasketPage(browser, link)
     page.open()
     page.should_be_basket_button()
     page.go_to_basket_page()
