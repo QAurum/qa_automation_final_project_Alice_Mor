@@ -1,13 +1,15 @@
 from selenium.webdriver.common.by import By
 
 class MainPageLocators():
-    MAIN_LINK = "http://selenium1py.pythonanywhere.com/"
+    MAIN_URL = "http://selenium1py.pythonanywhere.com/"
+    MAIN_LINK = (By.CSS_SELECTOR, ".col-sm-7")
+
 
 class LoginPageLocators():
     url_selenium1 = "http://selenium1py.pythonanywhere.com"
     target_link = "/ru/password-reset/"
 
-    LOGIN_LINK = "http://selenium1py.pythonanywhere.com/{language}/accounts/login/"
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_FORM = (By.CSS_SELECTOR, "#login_form")
     LOGIN_EMAIL = (By.CSS_SELECTOR, "#id_login-username")
     LOGIN_PASSWORD = (By.CSS_SELECTOR, "#id_login-password")
