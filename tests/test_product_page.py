@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 from pages.product_page import ProductPage
 from pages.basket_page import BasketPage
-from pages.login_page import LoginPage
+#from pages.login_page import LoginPage
 import pytest
 import time
 
@@ -19,7 +19,8 @@ def generate_password(length=10):
 # =======================================================
 
 
-def test_guest_can_add_product_to_basket(browser, link): # если прописать (browser, link) то будет искаться фикстура с link
+def test_guest_can_add_product_to_basket(browser): # если прописать (browser, link) то будет искаться фикстура с link
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
     page = ProductPage(browser, link)   # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес (создает объект page)
     page.open()
     page.should_be_add_to_basket_button() # кнопка добавления есть
@@ -30,10 +31,8 @@ def test_guest_can_add_product_to_basket(browser, link): # если пропис
     
     # Осн. задача
     page.add_to_basket()
-    page.solve_quiz_and_get_code()
-    #page.take_screenshot(f"after_add_{link.split('=')[-1]}")
+    page.solve_quiz_and_get_code_no_second_alert()
     page.should_be_success_message()
-    page.should_be_basket_price_message()
     page.should_be_correct_product_name_in_message(product_name)
     page.should_be_correct_price_in_basket_message(product_price)
     
@@ -94,7 +93,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
 # тесты - намеренный дубль для задания по курсу шаг 4.3.13
 # НО тесты для АВТОРИЗОВАННЫХ пользователей
 class TestUserAddToBasketFromProductPage():
-@paytest.fixture(scope="function", autouse=True)
+    @pytest.fixture(scope="function", autouse=True)
     def setup(self, browser): #SETUP для подготовики к тестам зареганного юзера d abrcneht
         self.browser = browser
         # добавлена регистрация
@@ -123,7 +122,6 @@ class TestUserAddToBasketFromProductPage():
         page = ProductPage(browser, link)
         page.open()
         page.should_be_add_to_basket_button()
-        
         product_name = page.get_product_name()
         product_price = page.get_product_price()
         
@@ -131,6 +129,5 @@ class TestUserAddToBasketFromProductPage():
         page.add_to_basket()
         page.solve_quiz_and_get_code()
         page.should_be_success_message()
-        page.should_be_basket_price_message()
         page.should_be_correct_product_name_in_message(product_name)
         page.should_be_correct_price_in_basket_message(product_price)

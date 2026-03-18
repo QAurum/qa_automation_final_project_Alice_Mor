@@ -39,7 +39,7 @@ class ProductPage(BasePage):   # наследуем от BasePage вычисле
         assert self.is_element_present(*CataloguePageLocators.SUCCESS_MESSAGE), \
         f"❌ Succes message not found"
 
-    def should_should_be_correct_name_in_basket_message(self, expected_name):
+    def should_be_correct_name_in_basket_message(self, expected_name):
         name_element = self.browser.find_element(*CataloguePageLocators.SUCCESS_MESSAGE)
         actual_name = name_element.text
         
@@ -60,10 +60,8 @@ class ProductPage(BasePage):   # наследуем от BasePage вычисле
 
 # Метод принимает параметры how, what, но внутри использует CataloguePageLocators
     def should_not_be_success_message(self, timeout=4):
-        assert self.is_not_element_present(
-            *CataloguePageLocators.SUCCESS_MESSAGE,
-            timeout=timeout
-        ), "❌ Сообщение об успехе появилось"
+        assert self.is_not_element_present(*CataloguePageLocators.SUCCESS_MESSAGE,
+            timeout=timeout), "❌ Сообщение об успехе появилось"
 
 
     def should_be_success_message_disappeared(self, timeout=4):
