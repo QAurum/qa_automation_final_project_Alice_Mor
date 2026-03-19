@@ -5,8 +5,6 @@ from pages.locators import MainPageLocators
 import pytest
 
 
-#Бутут переписаны. В них сейчас нет необходимости
-
 def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
     page = BasketPage(browser, link)
@@ -18,7 +16,6 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
 
 @pytest.mark.login_guest
 class TestLoginFromMainPage():
-    # не забываем передать первым аргументом self
     def test_guest_can_go_to_login_page(self, browser):
         page = MainPage(browser, MainPageLocators.MAIN_URL)
         page.open()

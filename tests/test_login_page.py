@@ -26,12 +26,12 @@ def get_actual_language(requested_lang):
 }
     return language_map.get(requested_lang, requested_lang) # 2 параметра: что ищем в словаре, и что вернулось если не нашли
     
-#-------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 
     # Проверка что мы на странице логина
 def test_guest_have_true_login_page(browser, request):
-    language = request.config.getoption("language")  # язык из CMD передаем а метод
-    actual_lang = get_actual_language(language)  # ← используем функцию замены языка
+    language = request.config.getoption("language")  # язык из CMD передаем в метод rfr --lenguage=en_gb или ru и т.д.
+    actual_lang = get_actual_language(language)  # используем функцию замены языка
     link = f"http://selenium1py.pythonanywhere.com/accounts/login/"
     page = LoginPage(browser, link)
     page.open()
@@ -62,8 +62,7 @@ def test_guest_should_see_register_form(browser):
     login_page = LoginPage(browser, browser.current_url)
     login_page.should_be_register_form()
     
-#-------------------------------------------------------------------------------------------------
-    
+#-------------------------------------------------------------------------
 
 # УСПЕШНАЯ АВТОРИЗАЦИЯ
 def test_guest_can_login_with_valid_data(browser, request):
@@ -88,7 +87,7 @@ def test_guest_can_not_login_with_invalid_data(browser, request):
     page.should_NOT_be_authorized_user()
     
     
-#-------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------
 
     # УСПЕШНАЯ РЕГИСТРАЦИЯ
 def test_guest_can_register(browser, request):
@@ -103,7 +102,7 @@ def test_guest_can_register(browser, request):
     # Генерируем уникальные данные
     email = generate_unique_email()
     password = generate_password()
-    # Логирование зареганного пользователя чтобы проверять под кем проходил тест
+    # Логирование зареганного пользователя чтобы проверять под кем проходили тест
     print(f"\n 👏 Регистрирация пользователя: {email} / {password}")
     
     page.register_user(email, password, password)
