@@ -1,6 +1,5 @@
 import pytest
 from selenium import webdriver
-#addopts = ["-ra", "-q"]   #в cmd pytest -m slow
 
 def pytest_addoption(parser):
     parser.addoption('--language', action='store', default=None,
