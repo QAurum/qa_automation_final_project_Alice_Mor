@@ -6,13 +6,13 @@ from .locators import LoginPageLocators
 
 
 class LoginPage(BasePage):
-# Это композитный метод (метод, собирающий другие методы). Его задача — проверить, что мы действительно на странице логина
+
     def should_be_login_page(self, expected_language): # language принимаем из test_main_page как expected_language. Определяется этот парамтер просто по порядку, как передавался
         self.should_be_login_url(expected_language)
         self.should_be_login_form()
         self.should_be_register_form()
         
-#-------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
 
 # Методы-действия (actions) — без assert
 
@@ -31,9 +31,9 @@ class LoginPage(BasePage):
         self.browser.find_element(*LoginPageLocators.PASSWORD_RESET)
         
     
-#-------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
 
-# Методы-проверки (assertions) — с assert
+# Методы-проверки
     
     # Наличия сообщения об ошибке
     def should_be_error_message(self):
@@ -46,25 +46,24 @@ class LoginPage(BasePage):
         "❌ User wasn't authorized"
     
     # Залогинились
-    def SHOULD_be_authorized_user(self): # Залогинились
+    def SHOULD_be_authorized_user(self):
         assert self.is_element_present(*LoginPageLocators.ICON_USER), \
         "❌ User wasn't Log In"
 
     # ======= ASSERT NOT =======
-    def should_NOT_be_authorized_user(self): # НЕ залогинились
+    
+    # НЕ залогинились
+    def should_NOT_be_authorized_user(self):
         assert not self.is_element_present(*LoginPageLocators.ICON_USER), \
         "‼️ User was authorized. WHY?"
-    
 
-#-------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
 
-#ПРОВЕРКИ
     def should_be_login_url(self, expected_language):
         # проверка на корректный url адрес
         current_url = self.browser.current_url # current_url это встроенное свойство Selenium, которое существует в WebDriver. Браузер запоминает адрес и его всегда можно получить по browser.current_url
         expected_url = f"https://selenium1py.pythonanywhere.com/{expected_language}/accounts/login/"
 
-        # Т.к. сайт перенаправляет с просто en на британский en-gb то проверка вот такая:
         # Проверяем домен
         assert "selenium1py.pythonanywhere.com" in current_url, \
         f"❌ Wrong domain: {current_url}"
@@ -73,21 +72,23 @@ class LoginPage(BasePage):
         assert "/accounts/login/" in current_url, \
         f"❌ It's not a login page: {current_url}. "
         
-        # Можно проверить протокол (https) - все-равно происходит перенаправление с http на https
+        # https
         assert current_url.startswith("https"), \
         "‼️ Site shouldn use HTTPS, not {current_url}"
         
-        # Проверка на наличие 'login' в URL
+        # Наличие 'login' в URL
         current_url = self.browser.current_url
         assert "login" in current_url, \
         "❌ 'Login' not in this URL"
 
-    def should_be_login_form(self):
+#--------------------------------------------------------------------------------
+
         # Проверка что есть форма логина
+    def should_be_login_form(self):
         assert self.is_element_present(*LoginPageLocators.LOGIN_FORM), \
         "❌ Login form is not presented"
 
-    def should_be_register_form(self):
         # Проверка что есть форма регистрации
+    def should_be_register_form(self):
         assert self.is_element_present(*LoginPageLocators.REGISTER_FORM), \
         "✅ Register form is present"

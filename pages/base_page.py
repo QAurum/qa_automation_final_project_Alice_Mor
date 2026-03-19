@@ -8,20 +8,13 @@ import time
 
 class BasePage():
 
-    # Первым делом добавим конструктор __init__ — метод, который вызывается, когда мы создаем объект. В него в качестве параметров мы передаем экземпляр драйвера и url адрес. Внутри конструктора сохраняем эти данные как аттрибуты нашего класса
-    # self как this
-
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
         self.browser.implicitly_wait(timeout)
-        
-    # Теперь добавим еще один метод open. Он должен открывать нужную страницу в браузере, используя метод get(). Объявите ниже в том же классе:
+
     def open(self):
         self.browser.get(self.url)
-        
-    # В __init__ мы сохраняем данные (browser и url)
-    # В open мы используем сохраненные данные через self
 
 
     # Методы-действия (actions) — без assert
@@ -29,9 +22,6 @@ class BasePage():
     def go_to_login_page(self):
         login_link = self.browser.find_element(*LoginPageLocators.LOGIN_LINK) #LOGIN_LINK_INVALID для негативной проверки
         login_link.click()
-    # для инициализации страницы неявно через метод:
-    # При создании объекта мы обязательно передаем ему тот же самый объект драйвера для работы с браузером, а в качестве url передаем текущий адрес.
-    #return LoginPage(browser=self.browser, url=self.browser.current_url)
 
     def go_to_basket_page(self):
         basket_link = self.browser.find_element(*BasePageLocators.BASKET_BUTTON)
@@ -52,8 +42,7 @@ class BasePage():
     def is_element_present(self, how, what):
         try:
             self.browser.find_element(how, what)
-    # NoSuchElementException (когда элемента нет) не обрабатывался до тех пор пока его не прописали здесь:
-        except (NoSuchElementException):  # ← правильное исключение!
+        except (NoSuchElementException):
             return False  # элемента нет
         except (InvalidSelectorException):
             return False
@@ -84,13 +73,12 @@ class BasePage():
             
             return False  # элемент появился
         except TimeoutException:
-                return True  # элемент появился
+                return True
 
 
-    # После вычисления полученный код нужно ввести в качестве ответа на данное задание. Код будет выведен в консоли интерпретатора, в котором вы запускаете тест. Не забудьте в конце теста добавить проверки на ожидаемый результат
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
-        x = alert.text.split(" ")[2] # Разрезаем строку 'x = "12345"' по пробелам # ["x", "=", "12345"][2] = "12345"
+        x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         alert.accept()
@@ -105,7 +93,7 @@ class BasePage():
         
     def solve_quiz_and_get_code_without_second_alert(self):
         alert = self.browser.switch_to.alert
-        x = alert.text.split(" ")[2] # Разрезаем строку 'x = "12345"' по пробелам # ["x", "=", "12345"][2] = "12345"
+        x = alert.text.split(" ")[2]
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         try:
@@ -114,7 +102,6 @@ class BasePage():
             return self.browser.find_element(alert.text)
         
 
-    def should_not_be_success_message(self, timeout=4): # Вспомогательный метод для провкерки что сообщения об успехе нет
+    def should_not_be_success_message(self, timeout=4):
         assert self.is_not_element_present(*CataloguePageLocators.SUCCESS_MESSAGE, timeout=timeout), \
-            f"{SUCCESS_MESSAGE}"
-            #f"❌ Сообщение об успехе появилось"
+            f"❌ Сообщение об успехе появилось"

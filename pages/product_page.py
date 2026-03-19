@@ -4,22 +4,22 @@ from selenium.webdriver.support.ui import WebDriverWait # Для явного о
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-class ProductPage(BasePage):   # наследуем от BasePage вычисления и промт
-    
-    
-    def add_to_basket(self): # self.method() — ищет метод в текущем классе
+class ProductPage(BasePage):
+
+    def add_to_basket(self):
         add_button = self.browser.find_element(*CataloguePageLocators.ADD_TO_BASKET)
         add_button.click()
-        
+
+    # super().method() — ищет метод в родительском классе (BasePage)
     def solve_quiz_and_get_code(self):
-        super().solve_quiz_and_get_code() # super().method() — ищет метод в родительском классе (BasePage)
-    
+        super().solve_quiz_and_get_code()
+        
     def should_be_add_to_basket_button(self):
         assert self.is_element_present(*CataloguePageLocators.ADD_TO_BASKET), \
         "❌ Button 'ADD TO BASKET' not found"
 
     def get_product_name(self):
-        return self.browser.find_element(*CataloguePageLocators.PRODUCT_NAME).text # так получаем его текст
+        return self.browser.find_element(*CataloguePageLocators.PRODUCT_NAME).text
         
     def get_product_price(self):
         return self.browser.find_element(*CataloguePageLocators.PRODUCT_PRICE).text
@@ -56,7 +56,6 @@ class ProductPage(BasePage):   # наследуем от BasePage вычисле
             
 # ==================== НЕГАТИВНЫЕ ПРОВЕРКИ ====================
 
-
 # Метод принимает параметры how, what, но внутри использует CataloguePageLocators
     def should_not_be_success_message(self, timeout=4):
         assert self.is_not_element_present(*CataloguePageLocators.SUCCESS_MESSAGE,
@@ -65,5 +64,5 @@ class ProductPage(BasePage):   # наследуем от BasePage вычисле
 
     def should_be_success_message_disappeared(self, timeout=4):
         assert self.is_disappeared(
-            *CataloguePageLocators.SUCCESS_MESSAGE, timeout=timeout # это передача полученного значения параметра по имени в другой метод
+            *CataloguePageLocators.SUCCESS_MESSAGE, timeout=timeout # передача полученного значения параметра по имени в другой метод
         ), "❌ Сообщение об успехе не исчезло"
