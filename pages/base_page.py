@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 import math
+import time
     # базовая страница, от которой будут унаследованы все остальные классы. В ней  описаны вспомогательные методы для работы с драйвером
 
 class BasePage():
@@ -21,7 +22,6 @@ class BasePage():
         
     # В __init__ мы сохраняем данные (browser и url)
     # В open мы используем сохраненные данные через self
-
 
 
     # Методы-действия (actions) — без assert
@@ -86,8 +86,6 @@ class BasePage():
         except TimeoutException:
                 return True  # элемент появился
 
-            
-    
 
     # После вычисления полученный код нужно ввести в качестве ответа на данное задание. Код будет выведен в консоли интерпретатора, в котором вы запускаете тест. Не забудьте в конце теста добавить проверки на ожидаемый результат
     def solve_quiz_and_get_code(self):
@@ -102,21 +100,21 @@ class BasePage():
             print(f"✅ Your code: {alert_text}")
             alert.accept()
         except NoAlertPresentException:
-            print("❌ No second alert presented")
-
-    def solve_quiz_and_get_code_no_second_alert(self):
+            return self.browser.find_element(alert.text)
+            
+        
+    def solve_quiz_and_get_code_without_second_alert(self):
         alert = self.browser.switch_to.alert
         x = alert.text.split(" ")[2] # Разрезаем строку 'x = "12345"' по пробелам # ["x", "=", "12345"][2] = "12345"
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
-        alert.accept()
         try:
-            alert = self.browser.switch_to.alert
-            alert_text = alert.text
-        except NoAlertPresentException:
-            print(f"✅ Your code: {alert_text}")
             alert.accept()
+        except NoAlertPresentException:
+            return self.browser.find_element(alert.text)
+        
 
     def should_not_be_success_message(self, timeout=4): # Вспомогательный метод для провкерки что сообщения об успехе нет
         assert self.is_not_element_present(*CataloguePageLocators.SUCCESS_MESSAGE, timeout=timeout), \
-            f"❌ Сообщение об успехе появилось, хотя не должно!"
+            f"{SUCCESS_MESSAGE}"
+            #f"❌ Сообщение об успехе появилось"

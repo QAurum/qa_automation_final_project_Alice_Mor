@@ -2,7 +2,6 @@ from .base_page import BasePage
 from .locators import CataloguePageLocators
 from selenium.webdriver.support.ui import WebDriverWait # Для явного ожидания
 from selenium.webdriver.support import expected_conditions as EC
-
 import time
 
 class ProductPage(BasePage):   # наследуем от BasePage вычисления и промт
