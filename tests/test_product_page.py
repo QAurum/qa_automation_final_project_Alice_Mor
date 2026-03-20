@@ -18,7 +18,7 @@ def generate_password(length=10):
 # =======================================================
 
 @pytest.mark.need_review
-def test_guest_can_add_product_to_basket(browser): # если прописать (browser, link) то будет искаться фикстура с link
+def test_guest_can_add_product_to_basket(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
     page.open()
@@ -29,7 +29,7 @@ def test_guest_can_add_product_to_basket(browser): # если прописать
     product_price = page.get_product_price()
     
     page.add_to_basket()
-    page.solve_quiz_and_get_code()
+    #Почему не solve_quiz_and_get_code_without_second_alert - см. комментарий https://stepik.org/lesson/201964/step/13?discussion=1059477&unit=176022
     page.should_be_success_message()
     
     page.should_be_correct_name_in_basket_message(product_name)
