@@ -1,8 +1,7 @@
-# Описывает КАК работать со страницей (методы)
 # ЗДЕСЬ мы говорим "найди поле, вставь данные, нажми кнопку"
-from .base_page import BasePage
-from .main_page import MainPage
-from .locators import LoginPageLocators
+from pages.base_page import BasePage
+from pages.main_page import MainPage
+from pages.locators import LoginPageLocators
 
 
 class LoginPage(BasePage):

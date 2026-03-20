@@ -1,5 +1,5 @@
-from .base_page import BasePage
-from .locators import BasePageLocators, BasketPageLocators
+from pages.base_page import BasePage
+from pages.locators import BasePageLocators, BasketPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException, NoAlertPresentException, TimeoutException
 from selenium.webdriver.support import expected_conditions as EC

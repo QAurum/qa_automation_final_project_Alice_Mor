@@ -1,5 +1,5 @@
-from .base_page import BasePage
-from .locators import CataloguePageLocators
+from pages.base_page import BasePage
+from pages.locators import CataloguePageLocators
 from selenium.webdriver.support.ui import WebDriverWait # Для явного ожидания
 from selenium.webdriver.support import expected_conditions as EC
 import time
