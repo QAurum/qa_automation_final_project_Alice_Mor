@@ -123,10 +123,8 @@ class TestUserAddToBasketFromProductPage():
         link = f"https://selenium1py.pythonanywhere.com/accounts/login/"
         page = ProductPage(browser, link)
         page.open()
-
-        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95"
-        page = ProductPage(browser, link)
-        page.open()
+        
+        product_page = ProductPage(browser, browser.current_url) # позволяет получить ссылку новой страницы для работы уже в ней (переход по страницам)
         
         page.should_be_add_to_basket_button()
         product_name = page.get_product_name()
